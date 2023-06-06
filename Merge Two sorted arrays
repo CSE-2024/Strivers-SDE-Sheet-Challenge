@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+
+vector<int> ninjaAndSortedArrays(vector<int>& n1, vector<int>& n2, int m, int n) {
+	vector<int> v;
+        int i=0,j=0;
+        while(i<m&&j<n){
+			if(n1[i]>n2[j]){
+				v.push_back(n2[j]);
+				j++;
+			}
+			else if(n1[i]<n2[j]){
+				v.push_back(n1[i]);
+				i++;
+			}
+			else{
+				v.push_back(n1[i]);
+				v.push_back(n2[j]);
+				i++;j++;
+			}
+		}
+		while(i<m){
+			v.push_back(n1[i]);
+			i++;
+		}
+		while(j<n){
+			v.push_back(n2[j]);
+			j++;
+		}
+
+		return v;
+}
