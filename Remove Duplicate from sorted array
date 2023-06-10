@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n=-999,count=0;
+
+        for(auto i:nums){
+            if(i!=n){
+                n=i;
+                                nums[count]=i;
+                count++;
+
+            }
+        }
+
+        
+        return count;
+    }
+};
