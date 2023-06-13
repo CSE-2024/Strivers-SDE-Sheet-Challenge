@@ -1,0 +1,26 @@
+class Solution {
+public:
+int n;
+void recur(vector<vector<int>>&vtr,int ind,vector<int> nums,vector<int>&v){
+     if(v.size()==n){
+         vtr.push_back(v);
+         return ;
+     }
+     if(ind !=-1){
+        nums.erase(nums.begin()+ind,nums.begin()+ind+1);
+     }
+    for(int i=0;i<nums.size();i++){
+        v.push_back(nums[i]);
+        recur(vtr,i,nums,v);
+        v.erase(v.end()-1);
+    }
+     
+}
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> vtr;
+        vector<int> v;
+        n=nums.size();
+        recur(vtr,-1,nums,v);
+        return vtr;
+    }
+};
