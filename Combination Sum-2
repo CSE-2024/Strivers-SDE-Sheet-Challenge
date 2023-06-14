@@ -1,0 +1,27 @@
+class Solution {
+    int k;
+public:
+    void recur(vector<int> &cand,vector<vector<int>> &vtr,vector<int> v,int ind,int sum){
+        if(sum==k){
+            vtr.push_back(v);
+            return;
+        }
+
+        for(int i=ind;i<cand.size();i++){
+        if(ind!=i&&cand[i]==cand[i-1]) continue;
+        if(sum>k) break;
+        v.push_back(cand[i]);
+        recur(cand,vtr,v,i+1,sum+cand[i]);
+        v.erase(v.end()-1);
+        }
+    }
+    vector<vector<int>> combinationSum2(vector<int>& cand, int t) {
+        k=t;
+        sort(cand.begin(),cand.end());
+        vector<vector<int>> vtr;
+        vector<int> v;
+        recur(cand,vtr,v,0,0);
+        
+        return vtr;        
+    }
+};
