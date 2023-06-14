@@ -1,0 +1,36 @@
+class Solution {
+public:
+int ka;
+void solve(vector<int> &nums,set<vector<int>> &vtr,vector<int> v,int ind,int a){
+      if(a==ka)
+      {
+          sort(v.begin(),v.end());
+          vtr.insert(v);
+          return ;
+      }
+      else if(a>ka)
+      return ;
+
+      if(ind>nums.size())
+    return ;
+
+       v.push_back(nums[ind]);
+       nums.push_back(nums[ind]);
+       solve(nums,vtr,v,ind+1,a+nums[ind]);
+       nums.erase(nums.end()-1);
+       v.erase(v.end()-1);
+       solve(nums,vtr,v,ind+1,a);
+
+    }
+    vector<vector<int>> combinationSum(vector<int>& nums, int target) {
+        set<vector<int>> vtr;
+        vector<int> v;
+        ka=target;
+        solve(nums,vtr,v,0,0);
+        vector<vector<int>> ans;
+
+        for(auto it:vtr)
+        ans.push_back(it);
+        return ans;
+    }
+};
