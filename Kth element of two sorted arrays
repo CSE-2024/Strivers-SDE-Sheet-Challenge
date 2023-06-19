@@ -1,0 +1,23 @@
+int ninjaAndLadoos(vector<int> &row1, vector<int> &row2, int m, int n, int k) {
+    int ans=0,cnt=0;
+    int i=0,j=0;
+    while(i<m&&j<n&&cnt!=k){
+        if(row1[i]>row2[j]){
+            ans=row2[j];
+            j++;
+        }
+        else{
+            ans=row1[i];
+            i++;
+        }
+        cnt++;
+    }
+    if(i<m&&cnt!=k){
+        ans=row1[k-cnt+i-1];
+    }
+    else if(j<n&&cnt!=k){
+        ans=row2[k-cnt+j-1];
+    }
+
+    return ans;
+}
