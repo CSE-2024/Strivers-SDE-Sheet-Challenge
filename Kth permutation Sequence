@@ -1,0 +1,38 @@
+int na,cnt=0,f=-1;
+void recur(vector<int> &vtr,string &ans,int k,int fact){
+      if(vtr.size()==0||f==0){
+          f=0;
+          return;
+      }
+    
+    for(int i=0;i<vtr.size();i++){
+        if(k>fact){
+            k=k-fact;
+        }
+        else{
+            ans+=to_string(vtr[i]);
+            vtr.erase(vtr.begin()+i,vtr.begin()+i+1);
+            break;
+        }
+    }
+    if(vtr.size()==0||f==0){
+          f=0;
+          return;
+      }
+    recur(vtr,ans,k,fact/vtr.size());
+     
+}
+string kthPermutation(int n, int k) {
+        string nums;
+        vector<int> vtr;
+        int fact=1;
+        f=-1;
+        for(int i=1;i<n;i++){
+           fact=fact*i;
+           vtr.push_back(i);
+        }
+        vtr.push_back(n);
+        recur(vtr,nums,k,fact);
+
+        return nums;
+}
