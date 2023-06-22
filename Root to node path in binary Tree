@@ -1,0 +1,55 @@
+#include <bits/stdc++.h> 
+/*   
+    template <typename T = int>
+	class TreeNode
+	{
+		public:
+		T data;
+		TreeNode<T> *left;
+		TreeNode<T> *right;
+
+		TreeNode(T data)
+		{
+			this->data = data;
+			left = NULL;
+			right = NULL;
+		}
+
+		~TreeNode()
+		{
+			if (left != NULL)
+			{
+		  		delete left;
+			}
+			if (right != NULL)
+			{
+			 	delete right;
+			}
+		}
+	};
+*/
+int f=-1;
+void recur(TreeNode<int>* root,int x,vector<int>&v){
+	if(root==NULL||f==0)
+	return ;
+	v.push_back(root->data);
+    if(root->data==x){
+	   f=0;
+       return;
+	}
+	recur(root->left,x,v);
+	recur(root->right,x,v);
+	if(root==NULL||f==0)
+	return ;
+	else
+	v.pop_back();
+
+}
+
+vector<int> pathInATree(TreeNode<int> *root, int x)
+{
+    vector<int> v;
+	f=-1;
+	recur(root,x,v);
+	return v;
+}
