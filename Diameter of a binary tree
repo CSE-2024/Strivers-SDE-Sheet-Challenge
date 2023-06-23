@@ -1,0 +1,38 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+int res=0;
+int recur(TreeNode<int>* root){
+    if(root==NULL)
+    return 0;
+
+    int left=recur(root->left);
+    int right=recur(root->right);
+
+    res=max(res,left+right+1)-1;
+   // cout<<res<<endl;
+    return 1+max(left,right);
+}
+int diameterOfBinaryTree(TreeNode<int> *root)
+{
+    if(root==NULL)
+    return 0;
+	recur(root);
+    return res;
+}
