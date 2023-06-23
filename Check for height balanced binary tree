@@ -1,0 +1,44 @@
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+int a=0,res=0;
+int recur(BinaryTreeNode<int> *root){
+    if(root==NULL||a==-1)
+    return 0;
+    
+    int left=recur(root->left);
+    int right=recur(root->right);
+    if(abs(left-right)>=2)
+    a=-1;
+    if (a == -1) {
+      res = -1;
+      return 0;
+    }
+
+    return 1+max(left,right);
+
+}
+bool isBalancedBT(BinaryTreeNode<int>* root) {
+    a=0;
+    res=0;
+    recur(root);
+
+    return res==-1?false:true;
+}
