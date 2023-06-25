@@ -1,0 +1,46 @@
+#include <bits/stdc++.h> 
+/*
+    Following is the Binary Tree node structure:
+
+    class BinaryTreeNode {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+*/
+ int f=0;
+bool recur(BinaryTreeNode<int> *root, int x){
+    
+    if(root==NULL)
+    return false;
+
+    if(x>root->data)
+    recur(root->right,x);
+    else if(x<root->data)
+    recur(root->left,x);
+    else {
+      f = 1;
+      return true;
+    }
+    if(f==1)
+    return true;
+
+    return false;
+}
+bool searchInBST(BinaryTreeNode<int> *root, int x) {
+    // Write your code here.
+    f=0;
+    if(root==NULL)
+    return false;
+
+    return recur(root,x);
+
+
+}
