@@ -1,0 +1,23 @@
+void dfs(int r,int c,vector<vector<int>> &vis,int color,vector<vector<int>>& image,int src){
+        vis[r][c]=1;
+        image[r][c]=color;
+        int n=image.size();
+        int m=image[0].size();
+        int row[]={-1,1,0,0};
+        int col[]={0,0,1,-1};
+        for(int i=0;i<4;i++){
+            int delrow=r+row[i];
+            int delcol=c+col[i];
+            if(delrow>=0&&delrow<n&&delcol>=0&&delcol<m&&image[delrow][delcol]==src&&vis[delrow][delcol]==0)
+            dfs(delrow,delcol,vis,color,image,src);
+        }
+    }
+vector<vector<int>> floodFill(vector<vector<int>> &image, int x, int y, int color)
+{
+     int n=image.size();
+        int m=image[0].size();
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        dfs(x,y,vis,color,image,image[x][y]);
+
+        return image;
+}
