@@ -1,0 +1,17 @@
+vector<vector<int>> findTriplets(vector<int> nums, int n, int k) {
+	set<vector<int>> vtr;
+        for(int i=0;i<nums.size()-1;i++){
+            unordered_set<int> mp;
+            for(int j=i+1;j<nums.size();j++){
+                int c=-(nums[i]+nums[j])+k;
+                if(mp.find(c)!=mp.end()){                        
+                        vector<int> v={nums[i],nums[j],c};
+                        sort(v.begin(),v.end());
+                        vtr.insert(v);                        
+                }
+                mp.insert(nums[j]);
+            }
+        }
+        vector<vector<int>> ans(vtr.begin(),vtr.end());
+        return ans;
+}
