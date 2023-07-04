@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+bool detect(int i,stack<int> &st,vector<int> adj[],vector<int> &vis,vector<int> &pathvis){
+  vis[i]=1;
+  pathvis[i]=1;
+  for(auto it:adj[i]){
+    if(!vis[it]){
+      if(detect(it,st,adj,vis,pathvis)==true)return true;
+    }
+    else if(pathvis[it]==1)
+    return true;
+  }
+  pathvis[i]=0;
+  return false;
+}
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+    vector<int> vis(n+1,0),pathvis(n+1,0);
+    stack<int> st;
+    vector<int> adj[n+1];
+    for(int i=0;i<edges.size();i++){
+        adj[edges[i].first].push_back(edges[i].second);
+    }
+    for(int i=1;i<=n;i++){
+             if(detect(i,st,adj,vis,pathvis)==true)return 1;
+    }
+    return 0;
+}
