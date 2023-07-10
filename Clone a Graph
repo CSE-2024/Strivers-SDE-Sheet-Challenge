@@ -1,0 +1,59 @@
+#include <bits/stdc++.h> 
+/***************************************************************************
+
+	Class for graph graphnode is as follows:
+
+	class graphgraphNode
+	{
+		public:
+    		int data;
+    	vector<graphgraphNode *> neighbourss;
+    	graphgraphNode()
+    	{
+        	data = 0;
+        	neighbourss = vector<graphgraphNode *>();
+    	}
+
+    	graphgraphNode(int val)
+    	{
+        	data = val;
+        	neighbourss = vector<graphgraphNode *>();
+    	}
+
+    	graphgraphNode(int val, vector<graphgraphNode *> neighbourss)
+    	{
+        	data = val;
+        	this->neighbourss = neighbourss;
+    	}
+	};
+
+******************************************************************************/
+graphNode* dfs(graphNode* cur,unordered_map<graphNode*,graphNode*>& mp)
+    {
+        vector<graphNode*> neighbours;
+        graphNode* clone=new graphNode(cur->data);
+        mp[cur]=clone;
+            for(auto it:cur->neighbours)
+            {
+                if(mp.find(it)!=mp.end())   //already clone and stored in map
+                {
+                    neighbours.push_back(mp[it]);    //directly push back the clone graphnode from map to neigh
+                }
+                else
+                    neighbours.push_back(dfs(it,mp));
+            }
+            clone->neighbours=neighbours;
+            return clone;
+    }
+graphNode *cloneGraph(graphNode *node)
+{
+     unordered_map<graphNode*,graphNode*> mp;
+        if(node==NULL)
+            return NULL;
+        if(node->neighbours.size()==0)   //if only one node present no neighbors
+        {
+            graphNode* clone= new graphNode(node->data);
+            return clone; 
+        }
+        return dfs(node,mp);
+}
