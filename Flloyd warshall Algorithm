@@ -1,0 +1,22 @@
+int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) {
+    // Write your code here.
+    vector<vector<int>> mat(n+1,vector<int>(n+1,1e9));
+    for(auto it:edges){
+        mat[it[0]][it[1]]=it[2];
+    }
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            if(i==j)
+            mat[i][j]=0;
+        }
+    }
+    for(int i=1;i<=n;i++){
+        for(int x=1;x<=n;x++){
+            for(int y=1;y<=n;y++){
+                if(mat[x][i]!=1e9&&mat[i][y]!=1e9)
+                mat[x][y]=min(mat[x][y],mat[x][i]+mat[i][y]);
+            }
+        }
+    }
+    return mat[src][dest];
+}
