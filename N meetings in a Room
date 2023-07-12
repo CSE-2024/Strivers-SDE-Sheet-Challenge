@@ -1,0 +1,19 @@
+int maximumMeetings(vector<int> &start, vector<int> &end)
+{
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+    for(int i=0;i<start.size();i++){
+        pq.push({end[i],start[i]});
+    }
+    int limit=pq.top().first,ans=1;
+    pq.pop();
+    while(pq.size()!=0){
+        int endt=pq.top().first;
+        int startt=pq.top().second;
+        pq.pop();
+        if(startt>limit){
+            ans++;
+            limit=endt;
+        }
+    }
+    return ans;
+}
