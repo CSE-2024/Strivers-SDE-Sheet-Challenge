@@ -1,0 +1,71 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int tar) {
+        int n=nums.size(),ind=-1,ans=-1;
+        if(n==1&&tar==nums[0])
+        return 0;
+        if(nums[0]>nums[n-1]){
+            //rotated
+            for(int i=n-1;i>=0;i--){
+                if(nums[i-1]>nums[i]){
+                    ind=i;
+                    break;
+                }
+            }
+
+            if(nums[ind]==tar)
+            return ind;
+            else if(nums[n-1]<tar){
+                int l=0,h=ind-1;
+                while(h>=l){
+                    int mid=(l+h)/2;
+                    if(nums[mid]==tar){
+                        ans=mid;
+                        break;
+                    }
+                    else if(nums[mid]>tar){
+                        h=mid-1;
+                    }
+                    else{
+                        l=mid+1;
+                    }
+                }
+            } 
+            else{
+                int l=ind+1,h=n-1;
+                while(h>=l){
+                    int mid=(l+h)/2;
+                    if(nums[mid]==tar){
+                        ans=mid;
+                        break;
+                    }
+                    else if(nums[mid]>tar){
+                        h=mid-1;
+                    }
+                    else{
+                        l=mid+1;
+                    }
+                }
+            }          
+        }
+        else{
+            //not rotated
+            int l=0,h=n-1;
+                while(h>=l){
+                    int mid=(l+h)/2;
+                    if(nums[mid]==tar){
+                        ans=mid;
+                        break;
+                    }
+                    else if(nums[mid]>tar){
+                        h=mid-1;
+                    }
+                    else{
+                        l=mid+1;
+                    }
+                }
+        }
+
+        return ans;
+    }
+};
