@@ -1,0 +1,32 @@
+void solve(int i,int j,vector<vector<int>> &mat,vector<string> &ans,string str,vector<vector<int>> &pathvis){
+    if(i==mat.size()-1&&j==mat.size()-1){
+        ans.push_back(str);
+        return ;
+    }    
+    int x[]={-1,1,0,0};
+    int y[]={0,0,1,-1};
+    pathvis[i][j]=1;
+    for(int k=0;k<4;k++){
+        int a=i+x[k];
+        int b=j+y[k];
+        if(a>=0&&a<mat.size()&&b>=0&&b<mat.size()&&mat[a][b]==1&&pathvis[a][b]==0){
+            if(a==i+1)
+            {solve(a,b,mat,ans,str+'D',pathvis);}
+            else if(a==i-1)
+            {solve(a,b,mat,ans,str+'U',pathvis);}
+            else if(b==j+1)
+            {solve(a,b,mat,ans,str+'R',pathvis);}
+            else if(b==j-1)
+            {solve(a,b,mat,ans,str+'L',pathvis);}
+        }
+    }
+    pathvis[i][j]=0;
+}
+vector<string> ratMaze(vector<vector<int>> &mat) {
+    int n=mat.size();
+    vector<vector<int>> pathvis(n,vector<int>(n,0));
+    vector<string> ans;
+    string str="";
+    solve(0,0,mat,ans,str,pathvis);
+    return ans;
+}
