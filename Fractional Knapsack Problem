@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    // Write your code here.
+    // ITEMS contains {weight, value} pairs.
+    priority_queue<pair<double,int>> pq;
+    for(int i=0;i<n;i++){
+        pq.push({(double)items[i].second/items[i].first,i});
+    }
+    double ans=0;
+    int bag=0;
+    while(!pq.empty()&&bag<w){
+        double price=pq.top().first;
+        double ind=pq.top().second;
+        pq.pop();
+        if(bag+items[ind].first>w){
+            ans+=((w-bag)*(double)items[ind].second)/items[ind].first;
+            break;
+        }
+        ans+=items[ind].second;
+        bag+=items[ind].first;
+    }
+    return ans;
+}
