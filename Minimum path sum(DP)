@@ -1,0 +1,20 @@
+    class Solution {
+public:
+    int solve(int i,int j,int n,int m,vector<vector<int>> &matrix,vector<vector<int>> &dp){
+        if(i==n-1&&j==m-1) return matrix[i][j];
+        if(dp[i][j]!=-1) return dp[i][j];
+        int a=INT_MAX,b=INT_MAX,c=INT_MAX;
+        if(i+1<n)
+         a=matrix[i][j]+solve(i+1,j,n,m,matrix,dp);
+        if(j+1<m)
+         c=matrix[i][j]+solve(i,j+1,n,m,matrix,dp);
+
+        return dp[i][j]=min({a,c});
+    }
+    int minPathSum(vector<vector<int>>& grid) 
+    {
+        int n = grid.size(), m = grid[0].size();  
+        vector<vector<int>> dp(n,vector<int>(m,-1));
+        return solve(0,0,n,m,grid,dp);      
+    }
+};
