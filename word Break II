@@ -1,0 +1,28 @@
+#include <bits/stdc++.h> 
+map<string,int> mp;
+void solve(int ind,string &s,vector<string> &ans,string str){
+    if(ind==s.size()){
+        ans.push_back(str);
+        return;
+    }
+    string temp="";
+    for(int i=ind;i<s.size();i++){
+       temp+=s[i];
+       if(mp.find(temp)!=mp.end()){
+           temp+=' ';
+           solve(i+1,s,ans,str+temp);
+           temp.erase(temp.size()-1,1);
+       }
+    }
+}
+vector<string> wordBreak(string &s, vector<string> &dictionary)
+{
+    mp.clear();
+  for(auto it:dictionary){
+      mp[it]++;
+  }
+  vector<string> ans;
+  string str="";
+  solve(0,s,ans,str);
+  return ans;
+}
