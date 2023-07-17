@@ -1,0 +1,11 @@
+int median(vector<vector<int>> &mat, int m, int n) {
+    vector<int> vtr;
+    for(int i=0;i<m;i++){
+        for(int j=0;j<n;j++)
+        vtr.push_back(mat[i][j]);
+    }
+    sort(vtr.begin(),vtr.end());
+    if(vtr.size()%2!=0)return vtr[(m*n)/2];
+    else
+    return (vtr[(m*n)/2]+vtr[(m*n)/2 +1])/2;
+}
