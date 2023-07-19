@@ -1,0 +1,72 @@
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+bool findnode(TreeNode<int> *root, TreeNode<int> *leaf, stack<TreeNode<int>*> &st) {
+    st.push(root);
+    if (!root->left && !root->right) {
+    if (root->data == leaf->data)
+      return true;
+    else
+      st.pop();
+    return false;
+  }
+
+  if (root->left) {
+    if (findnode(root->left, leaf, st))
+      return true;
+  }
+
+  if (root->right) {
+    if (findnode(root->right, leaf, st))
+      return true;
+  }
+  st.pop();
+
+  return false;
+}
+
+void inverttree(TreeNode<int> *root,stack<TreeNode<int>*> &st){
+    
+}
+TreeNode<int> * invertBinaryTree(TreeNode<int> *root, TreeNode<int> *leaf)
+{
+	stack<TreeNode<int>*> parents;
+    findnode(root,leaf,parents);
+    TreeNode<int> *head = parents.top();
+  parents.pop();
+
+  TreeNode<int> *par = head;
+  while (!parents.empty()) {
+    auto p = parents.top();
+    parents.pop();
+
+    if (p->right == head) {
+      p->right = p->left;
+      p->left = NULL;
+    } else {
+      p->left = NULL;
+    }
+
+    head->left = p;
+    head = p;
+  }
+
+  return par;
+}
