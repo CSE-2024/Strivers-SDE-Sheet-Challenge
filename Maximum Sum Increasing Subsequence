@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+int solve(int ind, int last, vector<int> &track,vector<vector<int>> &dp) {
+	if(ind==track.size()) return 0;
+    int a=0;
+	if(last!=-1&&dp[ind][last]!=-1) return dp[ind][last];
+	if(last==-1||track[ind]>track[last]){
+		a=track[ind]+solve(ind+1,ind,track,dp);
+	}
+
+	int b=solve(ind+1,last,track,dp);
+
+	return last!=-1?dp[ind][last]=max(a,b):max(a,b);
+}
+
+int maxIncreasingDumbbellsSum(vector<int> &rack, int n)
+{
+	vector<vector<int>> dp(n,vector<int>(n,-1));
+	return solve(0,-1,rack,dp);
+}
