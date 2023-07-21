@@ -1,0 +1,17 @@
+int solve(int ind,int w,int n,vector<int>&values,vector<int> &weights,vector<vector<int>> &dp){
+	if(ind==n)return 0;
+	if(dp[ind][w]!=-1)return dp[ind][w];
+    int a=0;
+	if(w>=weights[ind]){
+		a=values[ind]+solve(ind+1,w-weights[ind],n,values,weights,dp);
+	}
+	
+	int b=solve(ind+1,w,n,values,weights,dp);
+
+	return dp[ind][w]=max(a,b);
+}
+int maxProfit(vector<int> &values, vector<int> &weights, int n, int w)
+{
+	vector<vector<int>> dp(n,vector<int>(w+1,-1));
+	return solve(0,w,n,values,weights,dp);
+}
