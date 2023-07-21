@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int solve(int ind,int last,vector<int>& nums,vector<vector<int>> &dp){
+        if(ind==nums.size())return 0;
+        if(last!=-1&&dp[ind][last]!=-1) return dp[ind][last];
+        int a=INT_MIN;
+
+        if(last==-1||nums[last]<nums[ind])
+        a=1+solve(ind+1,ind,nums,dp);
+
+        int b=solve(ind+1,last,nums,dp);
+
+        return last!=-1?dp[ind][last]=max(a,b):max(a,b);
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        vector<vector<int>> dp(nums.size()+1,vector<int>(nums.size()+1,-1));
+        return solve(0,-1,nums,dp);
+    }
+};
