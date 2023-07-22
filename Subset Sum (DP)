@@ -1,0 +1,28 @@
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    bool solve(int ind, int sum, int val, vector<int>& nums, vector<vector<int>>& dp) {
+        if (val == sum) return true;
+        if (val > sum || ind >= nums.size()) return false;
+        if (dp[ind][val] != -1) return dp[ind][val];
+
+        bool a = solve(ind + 1, sum, val + nums[ind], nums, dp);
+        bool b = solve(ind + 1, sum, val, nums, dp);
+
+        return dp[ind][val] = a || b;
+    }
+
+    bool canPartition(vector<int>& nums) {
+        int sum = 0;
+        for (auto it : nums) {
+            sum += it;
+        }
+        if (sum % 2 != 0) return false; 
+
+        int halfSum = sum / 2;
+        vector<vector<int>> dp(nums.size(), vector<int>(halfSum + 1, -1));
+        return solve(0, halfSum, 0, nums, dp);
+    }
+};
