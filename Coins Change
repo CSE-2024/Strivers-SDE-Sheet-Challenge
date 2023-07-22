@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int solve(int ind,int amount ,vector<int> &coins,vector<vector<int>> &dp){
+        if(amount==0) return 0;
+        if(ind>=coins.size()) return INT_MAX-1; 
+
+        if(dp[amount][ind]!=-1) return dp[amount][ind];
+
+        int ans=-1;
+        
+        if(amount>=coins[ind]){
+        int a=1+solve(ind,amount-coins[ind],coins,dp);
+        int b=solve(ind+1,amount,coins,dp);
+        ans=min(a,b);
+        }
+        else
+        ans=solve(ind+1,amount,coins,dp);
+        
+        return dp[amount][ind]=ans;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        sort(coins.rbegin(),coins.rend());
+        int n=coins.size();
+        vector<vector<int>> dp(amount+1,vector<int>(n,-1));
+        int a=solve(0,amount,coins,dp);
+        if(a==INT_MAX-1) return -1;
+        return a;
+    }
+};
