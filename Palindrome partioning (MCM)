@@ -1,0 +1,27 @@
+class Solution {
+public:
+     bool ispalind(string &s,int i,int j){
+        while(j>=i){
+            if(s[i]!=s[j])return false;
+            j--;i++;
+        }
+        return true;
+    }
+    int solve(string &s,int ind,vector<int> &dp){
+        if(ind==s.size())return 0;
+        if(ispalind(s,ind,s.size()-1))return 0;
+        int ans=INT_MAX;
+        if(dp[ind]!=-1) return dp[ind];
+        for(int i=ind;i<s.size();i++){
+            if(ispalind(s,ind,i)){
+              int a=1+solve(s,i+1,dp);
+              ans=min(a,ans);
+            }
+        }
+        return dp[ind]= ans==INT_MAX?0:ans;
+    }
+    int minCut(string s) {
+        vector<int> dp(s.size(),-1);
+        return solve(s,0,dp);
+    }
+};
