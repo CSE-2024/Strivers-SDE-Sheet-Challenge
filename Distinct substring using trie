@@ -1,0 +1,21 @@
+struct Node{
+    Node *list[26];
+    bool flag=false;
+};
+int countDistinctSubstrings(string &s)
+{
+    Node *root= new Node();
+    int cnt=0;
+    for(int i=0;i<s.size();i++){
+        string str="";
+        Node *temp=root;
+        for(int j=i;j<s.size();j++){
+          if(temp->list[s[j]-'a']==NULL){
+              cnt++;
+               temp->list[s[j]-'a']=new Node();
+          }
+          temp=temp->list[s[j]-'a'];
+        }        
+    }
+    return cnt+1;
+}
