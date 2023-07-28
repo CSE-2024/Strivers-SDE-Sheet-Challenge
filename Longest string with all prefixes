@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+struct Node{
+    Node *list[26];
+    bool flag=false;
+} ;
+class Trie{
+    public:
+    Node *root;
+    Trie(){
+        root=new Node();
+    }
+    void insert(string s){
+        Node *temp=root;
+        for(int i=0;i<s.size();i++){
+            if(temp->list[s[i]-'a']==NULL){
+                temp->list[s[i]-'a']=new Node();
+            }
+            temp=temp->list[s[i]-'a'];
+        }
+        temp->flag=true;
+    }
+};
+bool preexist(string s,Trie *t){
+        Node *temp=t->root;
+        for(int i=0;i<s.size();i++){
+            if(temp->list[s[i]-'a']==NULL)return false;
+            else{
+                temp=temp->list[s[i]-'a'];
+                if(temp->flag==false)return false;
+            }
+        }
+        return true;
+    }
+string completeString(int n, vector<string> &a){
+    Trie *t=new Trie();
+    for(int i=0;i<a.size();i++){
+        t->insert(a[i]);
+    }
+    string ans="";
+    int len=0;
+
+    for(auto it:a){
+        if(preexist(it,t)){
+            if(it.size()>ans.size())
+            ans=it;
+            else if(ans.size()==it.size()&&ans>it)
+            ans=it;
+        }
+    }
+
+    return ans==""?"None":ans;
+}
