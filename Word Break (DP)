@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int solve(int ind,string &s,set<string> &st,vector<int> &dp){
+        if(ind==s.size())return 1;
+        if(dp[ind]!=-1)return dp[ind];
+        string str="";
+        for(int i=ind;i<s.size();i++){
+          str+=s[i];
+          if(st.find(str)!=st.end()&&solve(i+1,s,st,dp))return 1;
+        }
+
+        return dp[ind]=0;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        vector<int> dp(s.size(),-1);
+        set<string> st(wordDict.begin(),wordDict.end());
+        return solve(0,s,st,dp);
+    }
+};
