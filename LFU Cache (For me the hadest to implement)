@@ -1,0 +1,49 @@
+class LFUCache {
+public:
+ priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>>pq;
+
+    unordered_map<int,int>mp;
+    unordered_map<int,int>freq;
+
+    int n;
+    int tar;
+
+    LFUCache(int capacity) {
+        n=capacity;
+    }
+    
+    int get(int key) {        
+        if(mp.find(key)==mp.end())return -1;
+        put(key,mp[key]);
+        return mp[key];
+    }
+    
+    void put(int key, int value) {
+        if(n==0) return;        
+        if(mp.find(key)==mp.end()&&mp.size()==n)
+        {
+            while(mp.size()==n)
+            {
+                auto x=pq.top();
+                if(freq[x.second.second]==x.first)
+                
+                {
+                    mp.erase(x.second.second);
+                    freq.erase(x.second.second);
+                }
+                pq.pop();
+            }
+        }
+        mp[key]=value;
+        freq[key]++;
+
+        pq.push({freq[key],{tar++,key}});
+    }
+};
+
+/**
+ * Your LFUCache object will be instantiated and called as such:
+ * LFUCache* obj = new LFUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
